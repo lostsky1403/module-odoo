@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="purchase_order_inherited_advance_payments_form_view" model="ir.ui.view">
+        <field name="name">purchase.order.inherited.advance.payment.form.view</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form[1]/header[1]/button[@name='button_confirm']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//form[1]/header[1]/button[@name='button_confirm'][2]" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="button_req_approve" invisible="req_approval_po == True"
+                        type="object" string="Request Approval" class="oe_highlight"/>
+                <button name="button_purchase_approval" string="Purchase Approval"
+                        type="object" class="oe_highlight" invisible="state not in ('purchase_approval')" groups="account.group_account_invoice"/>
+                <button name="button_director_approval" string="Director Approval"
+                        type="object" class="oe_highlight" invisible="state not in ('sent')" groups="nos_sale_approval.group_director"/>
+                <button string="Disapprove" type="object" name="disapprove_purchase" invisible="state not in ['purchase', 'done', 'cancel', 'purchase_approval', 'director_approval', 'done', 'purchase', 'sent']"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Approve Route">
+                    <group name="approv_details" string="Approve Details">
+                        <group>
+                            <field name="req_approval_po" invisible="True"/>
+                            <field name="request_approve_id"/>
+                            <field name="approve_purchase_manager_id"/>
+                            <field name="approve_director_manager_id"/>
+                        </group>
+                        <group>
+                            <field name="request_approve_date"/>
+                            <field name="purchase_manager_approve_date"/>
+                            <field name="director_manager_approve_date"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

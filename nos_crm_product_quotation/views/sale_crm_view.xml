@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="model_sale_order_refuse_wizard" model="ir.model">
+            <field name="name">Sale Order Refuse Wizard</field>
+            <field name="model">sale.order.refuse.wizard</field>
+            <field name="inherit_id" ref="sale_crm.crm_case_form_view_oppor"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_view_sale_quotation']" position="attributes">
+                    <attribute name="invisible">type == 'lead' or not is_crm_quotation</attribute>
+                </xpath>
+            </field>
+        </record>
+    </odoo>
