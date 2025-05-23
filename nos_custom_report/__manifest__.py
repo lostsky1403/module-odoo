@@ -2,7 +2,7 @@
 #############################################################################
 {
     'name': 'Nos Custom Report',
-    'version': '18.0.1.0.0',
+    'version': '17.0.1.0.0',
     'category': 'Uncategorized',
     'summary': """Generate PDF Report of Custom""",
     'description': """Custom Report From Nuyostech""",
