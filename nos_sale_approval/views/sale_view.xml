@@ -1,44 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
     <record id="sale_order_form_inherit_finance_approval" model="ir.ui.view">
         <field name="name">sale.order.form.view</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//form[1]/header[1]/button[@name='action_confirm']" position="attributes">
-                <attribute name="invisible">True</attribute>
+            <xpath expr="//button[@name='action_confirm']" position="attributes">
+                <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//form[1]/header[1]/button[@name='action_confirm'][2]" position="attributes">
-                <attribute name="invisible">True</attribute>
-            </xpath>
+            
             <xpath expr="//button[@name='action_preview_sale_order']" position="after">
-                <button name="button_req_approve" invisible="req_approval == True"
-                        type="object" string="Request Approval" class="oe_highlight"/>
-<!--                <button name="button_finance_approval" string="Finance Approval"-->
-<!--                        type="object" class="oe_highlight" invisible="state not in ('finance_approval')" groups="account.group_account_invoice"/>-->
-                <button name="button_director_approval" string="Director Approval"
-                        type="object" class="oe_highlight" invisible="state not in ('director_approval')" groups="nos_sale_approval.group_director"/>
-                <button name="%(action_sale_order_refuse_wiz)d" string="Refuse"
+                <button name="button_req_approve" 
+                        invisible="req_approval == True"
+                        type="object" 
+                        string="Request Approval" 
+                        class="oe_highlight"/>
+                <button name="button_director_approval" 
+                        string="Director Approval"
+                        type="object" 
+                        class="oe_highlight" 
+                        invisible="state != 'director_approval'" 
+                        groups="nos_sale_approval.group_director"/>
+                <button name="%(action_sale_order_refuse_wiz)d" 
+                        string="Refuse"
                         type="action"
                         invisible="state not in ('to_request','finance_approval','director_approval')"/>
-                <button name="button_reset_to_draft" string="Set to Draft"
-                        type="object" class="oe_highlight" invisible="state not in ('refuse')"/>
+                <button name="button_reset_to_draft" 
+                        string="Set to Draft"
+                        type="object" 
+                        class="oe_highlight" 
+                        invisible="state != 'refuse'"/>
             </xpath>
-<!--            <xpath expr="//form/header" position="inside">-->
-<!--            </xpath>-->
+            
             <xpath expr="//notebook" position="inside">
-                <page name="Approve Details" string="Approve Details">
+                <page name="approve_details" string="Approve Details">
                     <group name="approv_details" string="Approve Details">
                         <group>
-                            <field name="req_approval" invisible="True"/>
+                            <field name="req_approval" invisible="1"/>
                             <field name="request_approve_id"/>
-<!--                            <field name="approve_finance_manager_id"/>-->
                             <field name="approve_director_manager_id"/>
                         </group>
                         <group>
                             <field name="request_approve_date"/>
-<!--                            <field name="finance_manager_approve_date"/>-->
                             <field name="director_manager_approve_date"/>
                         </group>
                     </group>
@@ -56,38 +59,4 @@
             </xpath>
         </field>
     </record>
-<!--    <record model="ir.ui.view" id="view_quotation_tree_inherit_tripple_approval">-->
-<!--        <field name="name">sale.order.list.select.inherit.tripple.approval</field>-->
-<!--        <field name="model">sale.order</field>-->
-<!--        <field name="inherit_id" ref="sale.view_sales_order_filter"/>-->
-<!--        <field name="arch" type="xml">-->
-<!--            <xpath expr="//search" position="inside">-->
-<!--&lt;!&ndash;                <filter name="finance_approval" string="Finance Approval" domain="[('state', '=', 'finance_approval')]"/>&ndash;&gt;-->
-<!--                <filter name="director_approval" string="Director Approval" domain="[('state', '=', 'director_approval')]"/>-->
-<!--            </xpath>-->
-<!--        </field>-->
-<!--    </record>-->
-<!--     <record model="ir.actions.act_window" id="action_sale_finance_manager_approve">-->
-<!--            <field name="name">Finance Approvals</field>-->
-<!--            <field name="res_model">sale.order</field>-->
-<!--            <field name="view_mode">tree,form</field>-->
-<!--            <field name="context">{'search_default_finance_approval':1}</field>-->
-<!--    </record>-->
-<!--     <record model="ir.actions.act_window" id="action_sale_director_manager_approve">-->
-<!--            <field name="name">Director Approvals</field>-->
-<!--            <field name="res_model">sale.order</field>-->
-<!--            <field name="view_mode">tree,form</field>-->
-<!--            <field name="context">{'search_default_director_approval':1}</field>-->
-<!--    </record>-->
-<!--    <menuitem id="menu_order_approval"-->
-<!--              parent="sale.sale_menu_root" name="Orders Approval"-->
-<!--              sequence="12"/>-->
-<!--    <menuitem id="menu_finance_manager_approve" name="Finance Approvals"-->
-<!--              action="action_sale_finance_manager_approve" parent="menu_invoice_order_approval"-->
-<!--              groups="account.group_account_invoice"/>-->
-<!--    <menuitem id="menu_director_manager_approve" name="Director Approvals"-->
-<!--              action="action_sale_director_manager_approve" parent="menu_order_approval"-->
-<!--              groups="nos_sale_approval.group_sales_director"/>-->
-
-
 </odoo>

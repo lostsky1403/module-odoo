@@ -3,7 +3,7 @@
 
 {
     "name" : "Pipeline Product to Sales Order | CRM Product to Quotation",
-    "version" : "17.0.0.0",
+    "version" : "18.0.0.0",  # Update version ke 18.0
     "category" : "Sales",
     'summary': 'Pipeline Product to Quotation CRM Product to Sales Order CRM Product to Sale Order add products on pipeline to quotation add product on pipeline to sales order product from lead add product on lead to quotation add product on crm pipeline to quote product',
     "description": """
@@ -20,7 +20,6 @@
     "license":'OPL-1',
     "auto_install": False,
     "installable": True,
-    'license': 'OPL-1',
     "images":['static/description/Banner.gif'],
+    'application': False,
 }
-
